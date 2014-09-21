@@ -1,0 +1,86 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='csrf-token', content=_csrf)
+    meta(name='author', content='')
+    title #{title} | Forum
+    != css('styles')
+
+  body
+    include partials/navbar
+
+    .container(ng-app="ngTopic")
+        .row
+            .col-md-6(ng-controller="categoryAdminControl")
+                h2 
+                    i.fa.fa-thumb-tack
+                    | Categories 
+                .well
+                    div.row
+                        form(ng-submit="addCategory()" name="categoryForm" novalidate)
+                            .col-md-5
+                                input.form-control(type="text" ng-model="formData.name" placeholder="Name" required)
+                            .col-md-5
+                                input.form-control(type="text" ng-model="formData.description" placeholder="Description")
+                            .col-md-2
+                                button.form-control(type="submit" ng-disabled="categoryForm.$invalid")
+                                    i.fa.fa-pencil-square-o
+                                    | &nbsp;Add
+                    div.row(ng-repeat="category in categoryList")
+                        hr
+                        .col-md-2
+                            button.form-control
+                                i.fa.fa-wrench
+                        .col-md-4
+                            h5 {{category.name}}
+                        .col-md-4
+                            h5 {{category.description}}
+                        .col-md-2
+                            button.form-control(ng-click="deleteCategory(category._id)" )
+                                i.fa.fa-times
+                        
+
+            .col-md-6(ng-controller="topicAdminControl")
+                h2 
+                    i.fa.fa-cloud
+                    | Topics 
+                .well
+                    div.row
+                        form(ng-submit="addTopic()" name="topicForm" novalidate)
+                            .col-md-5
+                                input.form-control(type="text" ng-model="formData.subject" placeholder="Name" required)
+                                select.form-control(type="select" ng-model="formData.topic_cat" placeholder="Category" required)
+                                    option(ng-repeat="category in categoryList" value="{{category._id}}") {{category.name}}
+                            .col-md-5
+                                input.form-control(type="textarea" ng-model="formData.content" placeholder="Content" rows="4" required)
+                                //input.form-control(type="hidden" ng-model="formData.topic_by" placeholder="{{userid}}" value="{{userid}}") 
+                            .col-md-2
+                                button.form-control(type="submit" ng-disabled="topicForm.$invalid")
+                                    i.fa.fa-pencil-square-o
+                                    | &nbsp;Add
+                    div.row(ng-repeat="topic in topicList")
+
+                        hr
+                        .col-md-2
+                            button.form-control
+                                i.fa.fa-wrench
+                        .col-md-4
+                            h5 {{topic.subject}}
+                        .col-md-4
+                            h5 {{category.description}}
+                        .col-md-2
+                            button.form-control(ng-click="deleteCategory(category._id)" )
+                                i.fa.fa-times
+            .col-md-6
+                h2 Replies
+                #{user.gravatar(60)}
+            .col-md-6
+                h2 Notifications
+
+    include partials/footer
+
+    != js('application')

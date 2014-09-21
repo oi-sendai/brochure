@@ -1,0 +1,43 @@
+extends ../layout
+
+block content
+    .row.hemp(ng-app="ngTopic")
+        .col-md-8.col-md-offset-2.well
+            h2 #{topic[0].subject}
+            h5 by 
+                a(href="/user/#{topic[0].topic_by}") #{topic[0].topic_by}
+            p #{topic[0].content}
+            hr
+            h4(ng-controller="userControl")
+                //{{post[0].comments}}
+                section
+                    article.comment.row(ng-repeat="comment in post[0].comments track by $index" ng-animate=" 'animate' ")
+                        .col-md-5
+                                h5 
+                                    i.fa.fa-user 
+                                    span &nbsp;{{user.username}}
+                            .col-md-7
+                                p {{comment.message}}
+                hr
+                section.add-comment(ng-controller="commentControl" ng-init="init('#{topic[0]._id}')")
+                    article.comment(ng-repeat="comment in comments")
+                        .row.well
+                            .col-md-4
+                                if(user)
+                                    h6
+                                        a(href="/user/{{comment.reply_by}}") {{comment.reply_by}}
+                            .col-md-8
+                                p {{comment.reply}}
+                            hr
+                    if(user)
+                        aside.comment-form.row
+                            form(ng-submit="addComment()")
+                                .col-md-5
+                                    button(type="submit")
+                                        i.fa.fa-user
+                                        | &nbsp;#{user.profile.username} 
+                                        //- //!! You really should login for great content !!/
+                                    input.comment.break-word(type="hidden" ng-init="formData.reply_by = '#{user._id}'" ng-model="formData.reply_by" value="#{user._id}")
+                                    input.comment.break-word(type="hidden" ng-init="formData.topic_id = '#{topic[0]._id}'" ng-model="formData.topic_id" value="#{topic[0]._id}")
+                                .col-md-7
+                                    input.comment(type="textarea" ng-model="formData.reply" value="message")

@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  .row.hemp(ng-controller='pageController' data-ng-init="dostuff()")
+      .col-md-12
+        h1#logo.home-logo.raining-text
+          span.binary binary
+          span.geometry Geometry
+        a.btn.again(href="#" )
+      .col-md-12
+          article.pitch.tall
+            h3 Magento eCommerce
+      .col-md-12
+          article.pitch.bamford
+            h3 Wordpress as a CMS
+      .col-md-12
+          article.pitch.steve
+            h3 Wordpress as a Blog
+      .col-md-12
+          article.pitch.app
+            h3 Custom App Development
+            h4 Backbone JS
+            a(href="http://waitingfortheworldtoend.com") Waiting For the World to End 
+            h4 Angular JS
+            a(href="http://waitingfortheworldtoend.com") Scottish Hemp Forum
+
+  hr
+  article.row
+  //- section
+    .row
+      for category in categories
+        .col-sm-6
+          h2 #{category.name}
+          p #{category.description}
+          a.btn.btn-default(href='/room/#{category._id}', role='button') View details »
+

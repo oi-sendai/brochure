@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+    for post in something
+        article
+            h1 #{post._id}
+            h2 #{post.subject}
+            h3 #{post.content}
+            h4 #{post.topic_cat}
+            h5 #{post.topic_by}
+  

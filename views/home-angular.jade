@@ -1,0 +1,87 @@
+extends layout
+
+block content
+  h1 Forum Categories
+  p.lead Rant and believe
+  hr
+  section(ng-app="ngAdmin")
+    .row(ui-view autoscroll="false")
+      h3 ui view
+    .row(ng-controller="categoryAdminControl")
+      .col-sm-6(ng-repeat="category in categoryList")
+        h2 {{category.name}}
+        table.table.table-hover
+          //(ng-controller="forumTopicControl")
+          thead
+            tr
+              th Topic
+              th Posted By
+              th Replies
+              th Star
+          tbody
+            tr(ng-repeat="topic in topicList")
+              td
+                a(href="topic._id") {{topic.subject}}
+              td
+                a(href="topic.topic_by") {{topic.topic_by}}
+              td
+                i.fa.fa-user
+                | 435
+              td
+                i.fa.fa-star
+
+
+
+      .col-sm-6
+        h2 Medication
+        table.table.table-hover
+          thead
+            tr
+              th Topic
+              th User
+              th Replies
+              th Star
+
+          tbody
+            tr
+              td 
+                a(href="#") Some Topical Topic
+              td
+                a(href="") ForumUser
+              td
+                i.fa.fa-user
+              td 
+                i.fa.fa-star
+            tr
+              td 
+                a(href="#") Some Topical Topic
+              td
+                a(href="") ForumUser
+              td
+                i.fa.fa-user
+              td 
+                i.fa.fa-star
+
+            tr
+              td 
+                a(href="#") Some Topical Topic
+              td
+                a(href="") ForumUser
+              td
+                i.fa.fa-user
+              td 
+                i.fa.fa-star
+
+
+        a.btn.btn-default(href='#', role='button') Vist Topic »
+      .col-sm-6
+        h2 Diet & Nutrition
+        p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+        p
+          a.btn.btn-default(href='#', role='button') View details »
+      .col-sm-6
+        h2 Leaving Hospital
+        p Many of us don't like to be defined by the labels our doctor have given us. And your medication routine is entirely your business. However, if you feel that adding this information to your profile may help you get a more useful reply or help other users to avoid your triggers then you have the option to add this information into your post signature.
+        
+        p
+          a.btn.btn-default(href='#', role='button') View details »

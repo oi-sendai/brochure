@@ -1,0 +1,39 @@
+extends ../layout
+
+block content
+    .row.hemp(ng-app="ngTopic")
+        .col-md-8
+            h2 #{category}
+            table.table.table-hover
+              thead
+                tr
+                  th Topic
+                  th Posted By
+                  th Replies
+                  th Star
+              tbody
+                for topic in topics
+                    tr
+                      td
+                        a(href="/room/#{category}/topic/#{topic._id}") #{topic.subject}
+                      td
+                        i.fa.fa-user
+                        a(href="/user/#{topic.topic_by}") #{topic.topic_by}
+                      td
+                        i.fa.fa-paper-plane
+                        | 435 replies
+                      td
+                        i.fa.fa-star
+        .col-md-4(ng-controller="topicAdminControl")
+            h2 
+                i.fa.fa-umbrella
+                | New Topic 
+            .well
+                div.row
+                    form(ng-submit="addTopic()" name="topicForm" novalidate)
+                        input.form-control(type="text" ng-model="formData.subject" placeholder="Name" required)
+                        input.comment.break-word(type="hidden" ng-init="formData.topic_cat = '#{category}'" ng-model="formData.topic_cat" value="#{category}")
+                        input.form-control(type="textarea" ng-model="formData.content" placeholder="Content" rows="4" required)
+                        button.form-control(type="submit" ng-disabled="topicForm.$invalid")
+                            i.fa.fa-pencil-square-o
+                            | &nbsp;Add
